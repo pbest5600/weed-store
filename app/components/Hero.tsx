@@ -1,7 +1,8 @@
 // app/components/Hero.tsx
 import { Link } from 'react-router';
+import type { FC } from 'react';
 
-export default function Hero() {
+const Hero: FC = () => {
   return (
     <section className="bg-gradient-to-br from-emerald-800 via-emerald-700 to-emerald-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
@@ -94,4 +95,6 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+};
+
+export default Hero;
