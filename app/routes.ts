@@ -6,4 +6,5 @@ export default [
   { path: "product/:id", file: "routes/product.$id.tsx" },
   { path: "cart", file: "routes/cart.tsx" },
   { path: "checkout", file: "routes/checkout.tsx" },
+  { path: "success", file: "routes/success.tsx" },  // ADD THIS LINE
 ] satisfies RouteConfig;
