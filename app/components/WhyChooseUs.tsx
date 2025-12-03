@@ -1,98 +1,53 @@
 // app/components/WhyChooseUs.tsx
-import { Shield, Truck, Award, HeadphonesIcon, Leaf, BadgeCheck } from 'lucide-react';
-import type { FC } from 'react';
+import { Truck, Shield, Award } from 'lucide-react';
 
-const WhyChooseUs: FC = () => {
+export default function WhyChooseUs() {
   const features = [
     {
-      icon: Shield,
-      title: 'Safe & Secure',
-      description: 'All transactions are encrypted and your privacy is our top priority. Discreet packaging guaranteed.',
+      icon: Truck,
+      title: 'Reliable Shipping',
+      description: 'Green Society provides Canada Post Xpress Post shipping for orders over $99 toward any location in Canada. Xpress Post shipping typically takes 2-3 business days after the order is sent, but may take longer depending on your location.',
     },
     {
-      icon: Truck,
-      title: 'Fast Delivery',
-      description: 'Same-day shipping available. Free delivery on orders over $99. Track your package in real-time.',
+      icon: Shield,
+      title: "You're Safe With Us",
+      description: 'Our secure payment system accepts the most common forms of payments making the checkout process quicker! You can also trust that your information is kept safe when you order from us.',
     },
     {
       icon: Award,
-      title: 'Premium Quality',
-      description: 'Only the finest cannabis products. Lab-tested for potency and purity. AAA+ grade guarantee.',
-    },
-    {
-      icon: HeadphonesIcon,
-      title: '24/7 Support',
-      description: 'Our customer service team is always here to help. Live chat, email, or phone support available.',
-    },
-    {
-      icon: Leaf,
-      title: 'Best Selection',
-      description: 'Huge variety of strains, edibles, concentrates, and more. New products added weekly.',
-    },
-    {
-      icon: BadgeCheck,
-      title: 'Price Match',
-      description: 'Found a lower price? We\'ll match it. Competitive pricing and bulk discounts available.',
+      title: 'Best Quality & Pricing',
+      description: 'Here at Green Society, we take pride in the quality of our products and service. Our prices are set to ensure you receive your medication at a reasonable price and safely.',
     },
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="inline-block bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-semibold text-sm mb-4">
-            Why Choose Us
-          </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            What Makes Us The #1 Online Marijuana Dispensary in Canada?
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            We're committed to providing the best cannabis shopping experience with premium products, 
-            unbeatable service, and prices that can't be beat.
-          </p>
-        </div>
-
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <div
-                key={index}
-                className="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow"
-              >
-                {/* Icon */}
-                <div className="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-white" />
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <feature.icon className="w-6 h-6 text-emerald-600" />
+                  </div>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  {feature.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
-            Join thousands of satisfied customers across Canada
-          </p>
-          <button className="bg-emerald-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-emerald-700 transition">
-            Start Shopping
-          </button>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default WhyChooseUs;
+}
