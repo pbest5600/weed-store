@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { CartProvider } from "~/contexts/CartContext";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -33,7 +34,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <CartProvider>
+          {children}
+        </CartProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

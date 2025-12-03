@@ -1,10 +1,10 @@
 // app/routes/product.$id.tsx
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer';
-import ProductCard from '../components/ProductCard';
-import { Star, ShoppingCart, Heart, Share2, Check, Minus, Plus, Facebook, Twitter, MessageCircle, Copy } from 'lucide-react';
+import Navigation from '~/components/Navigation';
+import Footer from '~/components/Footer';
+import ProductCard from '~/components/ProductCard';
+import { Star, ShoppingCart, Heart, Share2, Check, Minus, Plus, Facebook, Twitter, MessageCircle, Copy, X } from 'lucide-react';
 import type { FC } from 'react';
 
 type TabType = 'description' | 'reviews' | 'refer';
@@ -16,6 +16,7 @@ export default function ProductDetailPage() {
   const [activeTab, setActiveTab] = useState<TabType>('description');
   const [selectedWeight, setSelectedWeight] = useState('3kg');
   const [userRating, setUserRating] = useState(0);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [deliveryOptions, setDeliveryOptions] = useState({
     option1: false,
     option2: false,
@@ -119,6 +120,15 @@ export default function ProductDetailPage() {
   const incrementQuantity = () => setQuantity(q => q + 1);
   const decrementQuantity = () => setQuantity(q => (q > 1 ? q - 1 : 1));
 
+  const openImageModal = (index: number) => {
+    setSelectedImage(index);
+    setIsImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false);
+  };
+
   const renderStars = (rating: number, interactive = false, onRate?: (rating: number) => void) => {
     return (
       <div className="flex gap-1">
@@ -158,14 +168,77 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
+      {/* Image Modal */}
+      {isImageModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4"
+          onClick={closeImageModal}
+        >
+          <div 
+            className="relative bg-white rounded-2xl max-w-4xl w-full p-4 md:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeImageModal}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition"
+            >
+              <X className="w-5 h-5 text-gray-600" />
+            </button>
+
+            {/* Main Image */}
+            <div className="bg-gray-50 rounded-xl mb-6 aspect-square flex items-center justify-center">
+              <div className="text-[200px] md:text-[300px]">{product.images[selectedImage]}</div>
+            </div>
+
+            {/* Thumbnails */}
+            <div className="flex justify-center gap-3">
+              {product.images.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={`w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded-lg flex items-center justify-center text-3xl md:text-4xl transition ${
+                    selectedImage === index 
+                      ? 'ring-2 ring-emerald-600 bg-white' 
+                      : 'hover:ring-2 hover:ring-gray-300'
+                  }`}
+                >
+                  {img}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Product Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
           {/* Left: Images */}
           <div>
             {/* Main Image */}
-            <div className="bg-white rounded-xl p-8 mb-4 aspect-square flex items-center justify-center shadow-sm">
+            <div 
+              className="bg-white rounded-xl p-8 mb-4 aspect-square flex items-center justify-center shadow-sm cursor-pointer relative group"
+              onClick={() => openImageModal(selectedImage)}
+            >
               <div className="text-9xl">{product.images[selectedImage]}</div>
+              
+              {/* Expand icon overlay */}
+              <div className="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-lg shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                <svg 
+                  className="w-5 h-5 text-gray-600" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" 
+                  />
+                </svg>
+              </div>
             </div>
             
             {/* Thumbnail Images */}
